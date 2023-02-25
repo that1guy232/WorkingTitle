@@ -4,7 +4,7 @@ import pygame
 
 
 class Button:
-    
+
     '''
     x (int): The x-coordinate of the top-left corner of the button.
     y (int): The y-coordinate of the top-left corner of the button.
@@ -24,14 +24,16 @@ class Button:
         self.text = text
         self.callback = callback
         self.font = pygame.font.SysFont("comicsans", 20)
+        self.hidden = False
 
     def draw(self, surface):
-        # draw the text
-        text = self.font.render(self.text, 1, (0, 0, 0))
-        pygame.draw.rect(surface, self.color,
-                         (self.x, self.y, self.width, self.height))
-        surface.blit(text, (self.x + (self.width / 2 - text.get_width() / 2),
-                     self.y + (self.height / 2 - text.get_height() / 2)))
+        if not self.hidden:
+            # draw the text
+            text = self.font.render(self.text, 1, (0, 0, 0))
+            pygame.draw.rect(surface, self.color,
+                             (self.x, self.y, self.width, self.height))
+            surface.blit(text, (self.x + (self.width / 2 - text.get_width() / 2),
+                                self.y + (self.height / 2 - text.get_height() / 2)))
 
     def is_over(self, pos):
         if self.x < pos[0] < self.x + self.width:
@@ -40,7 +42,8 @@ class Button:
         return False
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                if self.is_over(event.pos):
-                    self.callback()
+        if not self.hidden:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if self.is_over(event.pos):
+                        self.callback()

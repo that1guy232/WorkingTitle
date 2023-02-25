@@ -1,11 +1,16 @@
 import pygame
 
 
+from Trengine.GameRenderer.Camera import Camera
+from Trengine.GameRenderer.Renderer import Renderer
+
+
 class TreeGame():
     def __init__(self) -> None:
 
         # Initialize pygame
         pygame.init()
+        pygame.font.init()
         # display
         pygame.display.set_mode((800, 600))
 
@@ -18,6 +23,12 @@ class TreeGame():
 
         self.scenes = []
 
+        self.events = []
+
+        # default camera & renderer
+        #    def __init__(self, width, height, camera_min_x, camera_min_y, camera_max_x=10000000, camera_max_y=10000000):
+        self.camera = Camera(800, 600, 0, 0)
+
         pass
 
     def add_scene(self, scene):
@@ -28,12 +39,16 @@ class TreeGame():
         found_scene = False
         for scene in self.scenes:
             if scene.name == scene_name:
+                # on & off events
+                scene.on_enter()
+                self.current_scene.on_exit()
                 self.current_scene = scene
+
                 found_scene = True
 
         if not found_scene:
-            
-                        # if we didn't find the scene, print an error and ex    
+
+            # if we didn't find the scene, print an error and ex
             print("ERROR: Scene not found")
             # what scene are we looking for?
             print("Looking for scene: " + scene_name)
@@ -42,9 +57,6 @@ class TreeGame():
             for scene in self.scenes:
                 print(scene.name)
             exit()
-
-
-
 
         pass
 
@@ -56,7 +68,8 @@ class TreeGame():
             self.game_clock.tick(60)
 
             # handle the exit event
-            for event in pygame.event.get():
+            self.events = pygame.event.get()
+            for event in self.events:
                 if event.type == pygame.QUIT:
                     self.running = False
                     pass

@@ -1,0 +1,3 @@
+game/assets/colored-transparent.png
+16,1
+player,27,0,[flag,solid,liquid]
