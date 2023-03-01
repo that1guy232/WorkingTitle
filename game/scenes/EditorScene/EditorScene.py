@@ -28,7 +28,7 @@ class EditorScene(GameScene):
         super().on_exit()
 
     def update(self, dt):
-        super().update()
+        super().update(dt)
         pass
 
     def draw(self):
