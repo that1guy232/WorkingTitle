@@ -1,4 +1,4 @@
-from Trengine.ECS.Component import Component
+from Treengine.ECS.Component import Component
 
 
 class PlayerComponent(Component):
@@ -6,4 +6,5 @@ class PlayerComponent(Component):
         super().__init__("PlayerComponent")
 
         pass
+
     pass

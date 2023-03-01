@@ -1,8 +1,8 @@
-from Trengine.Game.TreeGame import TreeGame
+from Treengine.Game.TreeGame import TreeGame
 
-from game.MainMenu import MainMenu
-from game.PlayScene import PlayScene
-from game.EditorScene import EditorScene
+from game.scenes.MenuScene.MainMenu import MainMenu
+from game.scenes.PlayScene.PlayScene import PlayScene
+from game.scenes.EditorScene.EditorScene import EditorScene
 
 
 def main():
@@ -11,7 +11,7 @@ def main():
     game.scenes = [
         MainMenu(game, "main_scene"),
         PlayScene(game, "game_scene"),
-        EditorScene(game, "level_editor")
+        EditorScene(game, "level_editor"),
     ]
 
     game.current_scene = game.scenes[0]
